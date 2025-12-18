@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 4.0f;
+    //[SerializeField] private float moveSpeed = 4.0f;
 
-    private PlayerControls playerControls;
+    public PlayerControls playerControls;
+    public PlayerSettings playerSettings;
+
     private Vector2 movement;
     private Rigidbody2D rb;
+    private Player player;
 
     private void Awake()
     {
         playerControls = new PlayerControls();
+        //playerSettings = new PlayerSettings();
         rb = GetComponent<Rigidbody2D>();
+        player = GetComponent<Player>();
     }
 
     private void OnEnable()
@@ -34,10 +39,27 @@ public class PlayerController : MonoBehaviour
     private void PlayerInput()
     {
         movement = playerControls.Movement.Move.ReadValue<Vector2>();
+        if (playerControls.Attacks.Hit.ReadValue<bool>() )
+        {
+            
+        }
     }
 
     private void Move()
     {
-        rb.MovePosition(rb.position + movement * (moveSpeed * Time.fixedDeltaTime));
+        rb.MovePosition(rb.position + movement * (playerSettings.PlayerMoveSpeed * Time.fixedDeltaTime));
+        if (movement.x < 0)
+        {
+            Vector3 scale = transform.localScale;
+            scale.x = -1.0f;
+            transform.localScale = scale;
+        }
+        else
+        {
+            Vector3 scale = transform.localScale;
+            scale.x = 1.0f;
+            transform.localScale = scale;
+        }
+
     }
 }
