@@ -7,6 +7,8 @@ public class BubbleParticle : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        //animator.Play("BubbleParticleWait");
+        //animator.Play("BubbleParticle");
     }
 
     // Update is called once per frame

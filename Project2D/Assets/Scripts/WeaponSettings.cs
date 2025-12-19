@@ -7,5 +7,5 @@ public class WeaponSettings : ScriptableObject
     public float BubbleSpeed = 10.0f;
     public float BubbleLifetime = 2.0f;
     public float BubbleDamage = 5.0f;
-    public float BubbleCooldown = 1.0f;
+    public float BubbleCooldown = 0.1f;
 }

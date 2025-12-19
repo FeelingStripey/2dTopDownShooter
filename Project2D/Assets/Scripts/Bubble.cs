@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -13,7 +14,9 @@ public class Bubble : MonoBehaviour
     //public BoxCollider2D collider;
     public WeaponSettings settings;
 
-    private BubbleParticle particle;
+    //private BubbleParticle particle;
+
+    public GameObject bubbleParticlePrefab;
 
     private Vector3 velocity = Vector3.zero;
     private EBubbleState state;
@@ -26,7 +29,7 @@ public class Bubble : MonoBehaviour
         //collider = GetComponent<BoxCollider2D>();
         //state = EBubbleState.Unknown;
         rigidbody = GetComponent<Rigidbody2D>();
-        particle = GetComponent<BubbleParticle>();
+        //particle = GetComponent<BubbleParticle>();
     }
 
     // Update is called once per frame
@@ -78,6 +81,14 @@ public class Bubble : MonoBehaviour
     private void DestroyThis()
     {
         //Debug.Log("Destroy Called");
+        if (bubbleParticlePrefab != null)
+        {
+            GameObject bubbleParticleObject = Instantiate(bubbleParticlePrefab, new Vector3(transform.position.x, transform.position.y, -1.5f), Quaternion.identity);
+            BubbleParticle bubbleParticle = bubbleParticleObject.GetComponent<BubbleParticle>();
+            bubbleParticle.animator.Play("BubbleParticle");
+        }
+
+        
         Destroy(gameObject);
     }
 }
