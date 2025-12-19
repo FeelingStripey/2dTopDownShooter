@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -76,7 +77,16 @@ public class Bubble : MonoBehaviour
         {
             DestroyThis();
         }
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            EEnemyType enemyType = collision.gameObject.GetComponent<Enemy>().EnemyType;
+            if (enemyType == EEnemyType.Darfish)
+            {
+                DestroyThis();
+            }
+        }
     }
+
 
     private void DestroyThis()
     {

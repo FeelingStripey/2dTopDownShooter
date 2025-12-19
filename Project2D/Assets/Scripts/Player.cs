@@ -39,6 +39,10 @@ public class Player : MonoBehaviour
         if (shootTimer > 0)
         {
             shootTimer -= Time.deltaTime;
+            if (shootTimer <= 0)
+            {
+
+            }
         }
     }
 
@@ -74,5 +78,34 @@ public class Player : MonoBehaviour
     public float GetShootTimer()
     {
         return shootTimer;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            EEnemyType enemyType = collision.gameObject.GetComponent<Enemy>().EnemyType;
+
+            if (enemyType == EEnemyType.Electricity)
+            {
+                if (collision.gameObject.GetComponent<SpriteRenderer>().enabled == true)
+                {
+                    OnHurt();
+                }
+            }
+            if (enemyType == EEnemyType.Darfish)
+            {
+                if (collision.gameObject.GetComponent<Darfish>().state != EDarfishState.Dying)
+                {
+                    OnHurt();
+                }
+            }
+            
+        }
+    }
+
+    private void OnHurt()
+    {
+        this.GetComponent<SpriteRenderer>().enabled = false;
     }
 }
