@@ -3,9 +3,12 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
     private static Game sInstance;
+    public GameSettings settings;
 
     public GameObject playerGameObject;
     public PlayerCamera playerCamera;
+
+    private float localTimeScale = 1.0f;
     
     public static Game Instance
     { get { return sInstance; } }
@@ -19,6 +22,9 @@ public class Game : MonoBehaviour
     public PlayerCamera PlayerCamera
     { get { return playerCamera; } }
 
+    public float LocalTimeScale
+    { get { return localTimeScale; } }
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,6 +36,7 @@ public class Game : MonoBehaviour
         else
         {
             sInstance = this;
+            localTimeScale = settings.GameTimeScale;
         }
     }
 

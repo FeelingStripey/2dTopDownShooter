@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public PlayerSettings playerSettings;
 
     private Vector2 movement;
+    private Vector2 currentShootDirection;
     private Rigidbody2D rb;
     private Player player;
 
@@ -39,9 +40,18 @@ public class PlayerController : MonoBehaviour
     private void PlayerInput()
     {
         movement = playerControls.Movement.Move.ReadValue<Vector2>();
-        if (playerControls.Attacks.Hit.ReadValue<bool>() )
+        if (playerControls.Attacks.Hit.ReadValue<float>() > 0)
         {
-            
+            if (movement != Vector2.zero)
+            {
+                if (player.state != EPlayerState.Shooting && 
+                    player.state != EPlayerState.Dead &&
+                    player.GetShootTimer() <= 0)
+                {
+                    currentShootDirection = movement;
+                    player.SetState(EPlayerState.Shooting);
+                }
+            }
         }
     }
 
@@ -51,15 +61,20 @@ public class PlayerController : MonoBehaviour
         if (movement.x < 0)
         {
             Vector3 scale = transform.localScale;
-            scale.x = -1.0f;
-            transform.localScale = scale;
-        }
-        else
-        {
-            Vector3 scale = transform.localScale;
             scale.x = 1.0f;
             transform.localScale = scale;
         }
+        else if (movement.x > 0)
+        {
+            Vector3 scale = transform.localScale;
+            scale.x = -1.0f;
+            transform.localScale = scale;
+        }
 
+    }
+
+    public Vector2 getCurrentShootDirection()
+    {
+        return currentShootDirection;
     }
 }
