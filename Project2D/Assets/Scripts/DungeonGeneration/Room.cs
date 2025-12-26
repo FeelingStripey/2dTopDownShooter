@@ -17,6 +17,7 @@ public class Room : MonoBehaviour
             return;
         }
 
+        //Debug.Log("Register Called: " + this);
         RoomController.instance.RegisterRoom(this);
     }
 
@@ -29,5 +30,13 @@ public class Room : MonoBehaviour
     public Vector3 GetRoomCentre()
     {
         return new Vector3(X * width, Y * height);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            RoomController.instance.OnPlayerEnterRoom(this);
+        }
     }
 }
