@@ -14,6 +14,7 @@ public enum ECrawlerDirection : byte
 
 public class DungeonCrawlerController : MonoBehaviour
 {
+    public static DungeonCrawlerController instance;
 
     public static List<Vector2Int> positionsVisited = new List<Vector2Int>();
 
@@ -25,13 +26,28 @@ public class DungeonCrawlerController : MonoBehaviour
         { ECrawlerDirection.right, Vector2Int.right }
     };
 
+    private void Awake()
+    {
+        instance = this;
+    }
+
     public static List<Vector2Int> GenerateDungeon(DungeonGeneratorData dungeonData)
     {
         List<DungeonCrawler> dungeonCrawlers = new List<DungeonCrawler>();
 
         for (int i = 0; i < dungeonData.numberOfCrawlers; i++)
         {
-            dungeonCrawlers.Add(new DungeonCrawler(Vector2Int.zero));
+            GameObject go = new GameObject();
+            go.AddComponent<DungeonCrawler>();
+            DungeonCrawler crawler = go.GetComponent<DungeonCrawler>();
+            dungeonCrawlers.Add(crawler);
+
+            //SphereCollider sc = gameObject.AddComponent(typeof(SphereCollider)) as SphereCollider;
+            //DungeonCrawler dc = gameObject.AddComponent<DungeonCrawler>();
+
+            //DungeonCrawler dc = instance.AddComponent<DungeonCrawler>();
+            //BoxCollider2D dc = instance.AddComponent<BoxCollider2D>();
+            //dungeonCrawlers.Add(dc);
         }
         int iterations = Random.Range(dungeonData.iterationMin, dungeonData.iterationMax);
 
