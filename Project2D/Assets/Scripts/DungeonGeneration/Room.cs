@@ -17,6 +17,7 @@ public class Room : MonoBehaviour
     public Door bottomDoor;
 
     public List<Door> doors = new List<Door>();
+    public Spawner spawner;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
