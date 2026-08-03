@@ -28,8 +28,9 @@ public class TilemapController : MonoBehaviour
     void Start()
     {
         room = GetComponentInParent<Room>();
-        mapWidth = room.width;
-        mapHeight = room.height;
+        //unfuck these, should not need -1
+        mapWidth = room.width - 1;
+        mapHeight = room.height - 1;
 
         horizontalOffset += room.width / 2;
         verticalOffset += room.height / 2;
@@ -70,11 +71,7 @@ public class TilemapController : MonoBehaviour
             }
         }
 
-        //set corners
-        collisionMap.SetTile(new Vector3Int(0, 0, 0), bottomLeftCorner);
-        collisionMap.SetTile(new Vector3Int(mapHeight, 0, 0), topLeftCorner);
-        collisionMap.SetTile(new Vector3Int(0, mapWidth, 0), bottomRightCorner);
-        collisionMap.SetTile(new Vector3Int(mapHeight, mapWidth, 0), topRightCorner);
+
 
         //make left and right walls
         for (int y = 0; y < mapHeight; y++)
@@ -86,7 +83,11 @@ public class TilemapController : MonoBehaviour
             }
         }
 
-        
+        //set corners
+        collisionMap.SetTile(new Vector3Int(0, 0, 0), bottomLeftCorner);
+        collisionMap.SetTile(new Vector3Int(0, mapHeight, 0), topLeftCorner);
+        collisionMap.SetTile(new Vector3Int(mapWidth, 0, 0), bottomRightCorner);
+        collisionMap.SetTile(new Vector3Int(mapWidth, mapHeight, 0), topRightCorner);
 
         backgroundMap.transform.position -= new Vector3(horizontalOffset, verticalOffset, 0);
         collisionMap.transform.position -= new Vector3(horizontalOffset, verticalOffset, 0);
