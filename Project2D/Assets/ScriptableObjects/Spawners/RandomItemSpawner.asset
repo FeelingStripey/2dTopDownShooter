@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42c00af5d0576e040832d20f60042535, type: 3}
   m_Name: RandomItemSpawner
   m_EditorClassIdentifier: 
-  itemToSpawn: {fileID: 0}
-  minSpawn: 0
-  maxSpawn: 0
+  itemToSpawn: {fileID: 5514275562195685706, guid: 7bbd1ad368c306d439def1cee0327a59, type: 3}
+  minSpawn: 1
+  maxSpawn: 4

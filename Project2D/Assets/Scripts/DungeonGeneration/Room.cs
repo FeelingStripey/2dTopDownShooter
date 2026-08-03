@@ -22,6 +22,7 @@ public class Room : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
         if (RoomController.instance == null)
         {
             Debug.Log("Room Controller Null - pressed play in wrong scene");
@@ -51,6 +52,12 @@ public class Room : MonoBehaviour
 
         //Debug.Log("Register Called: " + this);
         RoomController.instance.RegisterRoom(this);
+
+        spawner = GetComponentInChildren<Spawner>();
+        if (spawner != null)
+        {
+            spawner.Spawn(new Vector2(width, height), transform.position);
+        }
     }
 
     public void RemoveUnconnectedDoors()
