@@ -106,6 +106,9 @@ public class Player : MonoBehaviour
 
     private void OnHurt()
     {
-        this.GetComponent<SpriteRenderer>().enabled = false;
+        if (settings.IsGodMode == false)
+        {
+            this.GetComponent<SpriteRenderer>().enabled = false;
+        }
     }
 }

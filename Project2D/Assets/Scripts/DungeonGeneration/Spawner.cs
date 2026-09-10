@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
     public SpawnerData spawnerData;
+    public List<GameObject> spawnedObjects = new List<GameObject>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,7 +28,16 @@ public class Spawner : MonoBehaviour
                 float x = Random.Range(roomPosition.x, roomPosition.x + roomSize.x) - roomSize.x / 2;
                 float y = Random.Range(roomPosition.y, roomPosition.y + roomSize.y) - roomSize.y / 2;
                 GameObject go = Instantiate(spawnerData.itemToSpawn, new Vector3(x, y, 0), Quaternion.identity, transform) as GameObject;
+                spawnedObjects.Add(go);
             }
+        }
+    }
+
+    public void Despawn()
+    {
+        foreach (var item in spawnedObjects)
+        {
+            Destroy(item);
         }
     }
 }

@@ -19,6 +19,7 @@ public class TilemapController : MonoBehaviour
     public TileBase backgroundTile;
     //public Dictionary<string, TileBase> WallTiles;
 
+    //this tells the tilemap what tiles to use to compose the map visually
     //turn this into a fucking dictionary please
     [SerializeField]
     TileBase leftWall, rightWall, topWall, bottomWall, topLeftCorner, topRightCorner, bottomLeftCorner, bottomRightCorner;
@@ -51,13 +52,13 @@ public class TilemapController : MonoBehaviour
     public void GenerateMap()
     {
         //generate background
-        //for (int x = 0; x < mapWidth; x++)
-        //{
-        //    for (int y = 0; y < mapHeight; y++)
-        //    {
-        //        backgroundMap.SetTile(new Vector3Int(x, y, 0), backgroundTile);
-        //    }
-        //}
+        for (int x = 0; x < mapWidth; x++)
+        {
+            for (int y = 0; y < mapHeight; y++)
+            {
+                backgroundMap.SetTile(new Vector3Int(x, y, 0), backgroundTile);
+            }
+        }
 
 
 

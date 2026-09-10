@@ -5,4 +5,5 @@ public class PlayerSettings : ScriptableObject
 {
     [Header("Movement")]
     public float PlayerMoveSpeed = 5.0f;
+    public bool IsGodMode = false;
 }

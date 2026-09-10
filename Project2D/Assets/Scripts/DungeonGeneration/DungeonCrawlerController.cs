@@ -38,6 +38,7 @@ public class DungeonCrawlerController : MonoBehaviour
         for (int i = 0; i < dungeonData.numberOfCrawlers; i++)
         {
             GameObject go = new GameObject();
+            go.name = "DungeonCrawler";
             go.AddComponent<DungeonCrawler>();
             DungeonCrawler crawler = go.GetComponent<DungeonCrawler>();
             dungeonCrawlers.Add(crawler);

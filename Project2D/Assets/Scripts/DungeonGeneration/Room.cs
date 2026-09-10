@@ -54,10 +54,6 @@ public class Room : MonoBehaviour
         RoomController.instance.RegisterRoom(this);
 
         spawner = GetComponentInChildren<Spawner>();
-        if (spawner != null)
-        {
-            spawner.Spawn(new Vector2(width, height), transform.position);
-        }
     }
 
     public void RemoveUnconnectedDoors()
@@ -146,6 +142,30 @@ public class Room : MonoBehaviour
         if (collision.tag == "Player")
         {
             RoomController.instance.OnPlayerEnterRoom(this);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            
+        }
+    }
+
+    public void OnPlayerEnter()
+    {
+        if (spawner != null)
+        {
+            spawner.Spawn(new Vector2(width, height), transform.position);
+        }
+    }
+
+    public void OnPlayerExit()
+    {
+        if (spawner != null)
+        {
+            spawner.Despawn();
         }
     }
 }

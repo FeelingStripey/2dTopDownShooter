@@ -141,7 +141,17 @@ public class RoomController : MonoBehaviour
 
     public void OnPlayerEnterRoom(Room room)
     {
+        if (currRoom != null)
+        {
+            currRoom.OnPlayerExit();
+        }
         CameraController.instance.currRoom = room;
         currRoom = room;
+        room.OnPlayerEnter();
+    }
+
+    public Room GetCurrRoom()
+    {
+        return currRoom;
     }
 }
