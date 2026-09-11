@@ -25,6 +25,7 @@ public class Game : MonoBehaviour
     public float LocalTimeScale
     { get { return localTimeScale; } }
 
+    public float roomLoadTimer = 8.0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -43,6 +44,13 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (roomLoadTimer >= 0)
+        {
+            roomLoadTimer -= Time.deltaTime;
+            if (roomLoadTimer < 0)
+            {
+                RoomController.instance.RoomsLoaded();
+            }
+        }
     }
 }

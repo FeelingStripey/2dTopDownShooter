@@ -28,6 +28,5 @@ public class DungeonGenerator : MonoBehaviour
                 RoomController.instance.LoadRoom("Empty", roomLocation.x, roomLocation.y);
             }
         }
-        
     }
 }

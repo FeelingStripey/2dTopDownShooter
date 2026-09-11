@@ -21,6 +21,8 @@ public class RoomController : MonoBehaviour
 
     Room currRoom;
 
+    public int doorSize = 2;
+
     Queue<RoomInfo> loadRoomQueue = new Queue<RoomInfo>();
 
     public List<Room> loadedRooms = new List<Room>();
@@ -120,6 +122,7 @@ public class RoomController : MonoBehaviour
             }
 
             loadedRooms.Add(room);
+            Debug.Log("Loaded Rooms: " + loadedRooms.Count);
             room.RemoveUnconnectedDoors();
         }
         else
@@ -153,5 +156,14 @@ public class RoomController : MonoBehaviour
     public Room GetCurrRoom()
     {
         return currRoom;
+    }
+
+    public void RoomsLoaded()
+    {
+        Debug.Log("Loaded Rooms x: " + loadedRooms.Count);
+        foreach (Room room in loadedRooms)
+        {
+            room.tilemapController.HandleDoors(doorSize);
+        }
     }
 }

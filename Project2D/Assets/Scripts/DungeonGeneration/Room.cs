@@ -18,10 +18,13 @@ public class Room : MonoBehaviour
 
     public List<Door> doors = new List<Door>();
     public Spawner spawner;
+    public TilemapController tilemapController;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        spawner = GetComponentInChildren<Spawner>();
+        tilemapController = GetComponentInChildren<TilemapController>();
 
         if (RoomController.instance == null)
         {
@@ -52,8 +55,6 @@ public class Room : MonoBehaviour
 
         //Debug.Log("Register Called: " + this);
         RoomController.instance.RegisterRoom(this);
-
-        spawner = GetComponentInChildren<Spawner>();
     }
 
     public void RemoveUnconnectedDoors()

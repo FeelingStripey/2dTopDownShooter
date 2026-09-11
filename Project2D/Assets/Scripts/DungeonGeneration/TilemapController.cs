@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System;
 
 
 public class TilemapController : MonoBehaviour
@@ -52,14 +53,13 @@ public class TilemapController : MonoBehaviour
     public void GenerateMap()
     {
         //generate background
-        for (int x = 0; x < mapWidth; x++)
+        for (int x = 0; x < mapWidth + 1; x++)
         {
-            for (int y = 0; y < mapHeight; y++)
+            for (int y = 0; y < mapHeight + 1; y++)
             {
                 backgroundMap.SetTile(new Vector3Int(x, y, 0), backgroundTile);
             }
         }
-
 
 
         //make top and bottom walls
@@ -71,8 +71,6 @@ public class TilemapController : MonoBehaviour
                 collisionMap.SetTile(new Vector3Int(x, mapHeight, 0), topWall);
             }
         }
-
-
 
         //make left and right walls
         for (int y = 0; y < mapHeight; y++)
@@ -92,6 +90,43 @@ public class TilemapController : MonoBehaviour
 
         backgroundMap.transform.position -= new Vector3(horizontalOffset, verticalOffset, 0);
         collisionMap.transform.position -= new Vector3(horizontalOffset, verticalOffset, 0);
+
     }
 
+    public void HandleDoors(int doorSize)
+    {
+        // Removes tiles to allow for doors. Door size is measured in tiles.
+        if (room.GetLeft() != null)
+        {
+            for (int i = 0; i < doorSize; i++)
+            {
+                collisionMap.SetTile(new Vector3Int(0, mapHeight / 2 - (doorSize / 2) + i + 1, 0), null);
+                //Debug.Log("Left Coords: X " + 0 + ", Y " + (mapHeight / 2 - (doorSize / 2) + i + 1));
+            }
+        }
+        if (room.GetRight() != null)
+        {
+            for (int i = 0; i < doorSize; i++)
+            {
+                collisionMap.SetTile(new Vector3Int(mapWidth, mapHeight / 2 - (doorSize / 2) + i + 1, 0), null);
+                //Debug.Log("Right Coords: X " + mapWidth + ", Y " + (mapHeight / 2 - (doorSize / 2) + i + 1));
+            }
+        }
+        if (room.GetTop() != null)
+        {
+            for (int i = 0; i < doorSize; i++)
+            {
+                collisionMap.SetTile(new Vector3Int(mapWidth / 2 - (doorSize / 2) + i + 1, mapHeight, 0), null);
+                //Debug.Log("Top Coords: X " + (mapWidth / 2 - (doorSize / 2) + i + 1) + ", Y " + mapHeight);
+            }
+        }
+        if (room.GetBottom() != null)
+        {
+            for (int i = 0; i < doorSize; i++)
+            {
+                collisionMap.SetTile(new Vector3Int(mapWidth / 2 - (doorSize / 2) + i + 1, 0, 0), null);
+                //Debug.Log("Bottom Coords: X " + (mapWidth / 2 - (doorSize / 2) + i + 1) + ", Y " + 0);
+            }
+        }
+    }
 }
